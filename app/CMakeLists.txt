@@ -4,6 +4,8 @@ set(CMAKE_VERBOSE_MAKEFILE on)
 
 set(libs "${CMAKE_SOURCE_DIR}/libs/opencv/libs_new")
 
+include(src/main/cpp/vlfeat/vlfeat.cmake)
+
 include_directories(${CMAKE_SOURCE_DIR}/libs/opencv/include)
 
 add_library(libopencv_java SHARED IMPORTED )
@@ -105,7 +107,8 @@ add_library( # Sets the name of the library.
              # Provides a relative path to your source file(s).
              # Associated headers in the same location as their source
              # file are automatically included.
-             src/main/cpp/native-lib.cpp)
+             src/main/cpp/native-lib.cpp
+             ${VLFEAT_SRC})
 
 find_library( # Sets the name of the path variable.
               log-lib

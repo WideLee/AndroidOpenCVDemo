@@ -2,6 +2,7 @@
 #include <string>
 #include "opencv2/opencv.hpp"
 #include "opencv2/nonfree/nonfree.hpp"
+#include "vlfeat/kdtree.h"
 
 extern "C"
 JNIEXPORT jstring JNICALL
@@ -19,6 +20,8 @@ Java_indoor_sysu_mobile_limk_opencvtest_MainActivity_stringFromJNI(
     sprintf(spec, ", image size: %d x %d\nSurf keypoints: %d",
             mat.rows, mat.cols, keypoints.size());
     strcat(hello, spec);
+
+    VlKDForest *forest;
 
     return env->NewStringUTF(hello);
 }
