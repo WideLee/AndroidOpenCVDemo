@@ -2,13 +2,21 @@ cmake_minimum_required(VERSION 3.6)
 
 set(CMAKE_VERBOSE_MAKEFILE on)
 
-set(libs "${CMAKE_SOURCE_DIR}/libs/opencv/libs")
+set(libs "${CMAKE_SOURCE_DIR}/libs/opencv/libs_new")
 
 include_directories(${CMAKE_SOURCE_DIR}/libs/opencv/include)
 
 add_library(libopencv_java SHARED IMPORTED )
 set_target_properties(libopencv_java PROPERTIES
     IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_java.so")
+
+add_library(libopencv_info SHARED IMPORTED )
+set_target_properties(libopencv_info PROPERTIES
+    IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_info.so")
+
+add_library(libopencv_androidcamera STATIC IMPORTED )
+set_target_properties(libopencv_androidcamera PROPERTIES
+    IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_androidcamera.a")
 
 add_library(libopencv_calib3d STATIC IMPORTED )
 set_target_properties(libopencv_calib3d PROPERTIES
@@ -30,6 +38,10 @@ add_library(libopencv_flann STATIC IMPORTED )
 set_target_properties(libopencv_flann PROPERTIES
     IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_flann.a")
 
+add_library(libopencv_gpu STATIC IMPORTED )
+set_target_properties(libopencv_gpu PROPERTIES
+    IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_gpu.a")
+
 add_library(libopencv_highgui STATIC IMPORTED )
 set_target_properties(libopencv_highgui PROPERTIES
     IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_highgui.a")
@@ -46,9 +58,17 @@ add_library(libopencv_ml STATIC IMPORTED )
 set_target_properties(libopencv_ml PROPERTIES
     IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_ml.a")
 
+add_library(libopencv_nonfree STATIC IMPORTED )
+set_target_properties(libopencv_nonfree PROPERTIES
+    IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_nonfree.a")
+
 add_library(libopencv_objdetect STATIC IMPORTED )
 set_target_properties(libopencv_objdetect PROPERTIES
     IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_objdetect.a")
+
+add_library(libopencv_ocl STATIC IMPORTED )
+set_target_properties(libopencv_ocl PROPERTIES
+    IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_ocl.a")
 
 add_library(libopencv_photo STATIC IMPORTED )
 set_target_properties(libopencv_photo PROPERTIES
@@ -62,6 +82,10 @@ add_library(libopencv_superres STATIC IMPORTED )
 set_target_properties(libopencv_superres PROPERTIES
     IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_superres.a")
 
+add_library(libopencv_ts STATIC IMPORTED )
+set_target_properties(libopencv_ts PROPERTIES
+    IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_ts.a")
+
 add_library(libopencv_video STATIC IMPORTED )
 set_target_properties(libopencv_video PROPERTIES
     IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_video.a")
@@ -69,14 +93,6 @@ set_target_properties(libopencv_video PROPERTIES
 add_library(libopencv_videostab STATIC IMPORTED )
 set_target_properties(libopencv_videostab PROPERTIES
     IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_videostab.a")
-
-add_library(libopencv_ts STATIC IMPORTED )
-set_target_properties(libopencv_ts PROPERTIES
-    IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libopencv_ts.a")
-
-add_library(libopencv_nonfree SHARED IMPORTED )
-set_target_properties(libopencv_nonfree PROPERTIES
-    IMPORTED_LOCATION "${libs}/${ANDROID_ABI}/libnonfree.so")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fexceptions -frtti")
 
@@ -100,22 +116,26 @@ find_library( # Sets the name of the path variable.
 
 target_link_libraries(native-lib android log
     libopencv_java
+    libopencv_info
+    libopencv_androidcamera
     libopencv_calib3d
     libopencv_contrib
     libopencv_core
     libopencv_features2d
     libopencv_flann
+    libopencv_gpu
     libopencv_highgui
     libopencv_imgproc
     libopencv_legacy
     libopencv_ml
+    libopencv_nonfree
     libopencv_objdetect
+    libopencv_ocl
     libopencv_photo
     libopencv_stitching
     libopencv_superres
+    libopencv_ts
     libopencv_video
     libopencv_videostab
-    libopencv_ts
-    libopencv_nonfree
     ${log-lib}
     )

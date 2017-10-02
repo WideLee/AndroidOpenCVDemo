@@ -33,7 +33,7 @@ android {
 
     sourceSets {
         main {
-            jniLibs.srcDirs = ['libs/opencv/libs']
+            jniLibs.srcDirs = ['libs/opencv/libs_new']
         }
     }
 }
